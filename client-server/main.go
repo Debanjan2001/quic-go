@@ -133,11 +133,6 @@ func setupHandler(www string) http.Handler {
 }
 
 func main() {
-	// defer profile.Start().Stop()
-	go func() {
-		log.Println(http.ListenAndServe("localhost:6060", nil))
-	}()
-	// runtime.SetBlockProfileRate(1)
 
 	verbose := flag.Bool("v", false, "verbose")
 	bs := binds{}
@@ -146,6 +141,12 @@ func main() {
 	tcp := flag.Bool("tcp", false, "also listen on TCP")
 	enableQlog := flag.Bool("qlog", false, "output a qlog (in the same directory)")
 	flag.Parse()
+
+	// defer profile.Start().Stop()
+	go func() {
+		log.Println(http.ListenAndServe("localhost:6060", http.FileServer(http.Dir(*www))))
+	}()
+	// runtime.SetBlockProfileRate(1)
 
 	logger := utils.DefaultLogger
 

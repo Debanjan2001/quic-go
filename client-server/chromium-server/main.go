@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	dirpath := "/home/bob/Desktop/mtp/DATA/"
+	dirpath := "/home/bob/Desktop/mtp/DATA/www.example.org/"
 	handler := http.FileServer(http.Dir(dirpath))
 	http.Handle("/", handler)
 
