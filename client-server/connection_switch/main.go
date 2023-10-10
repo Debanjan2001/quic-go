@@ -144,11 +144,14 @@ func main() {
 
 	ctx, cancelFunc := context.WithCancel(context.Background())
 	go func() {
-		time.Sleep(5 * time.Second)
+		time.Sleep(3 * time.Second)
 		cancelFunc()
+		fmt.Println("Quitting QUIC Client")
 	}()
+
 	RunClient(ctx, quic_client, logger, quic_urls, quiet)
 
+	time.Sleep(10 * time.Second)
 	ctx, cancelFunc = context.WithCancel(context.Background())
 	RunClient(ctx, tcp_client, logger, tcp_urls, quiet)
 }

@@ -186,7 +186,8 @@ func main() {
 				err = http3.ListenAndServe(bCap, certFile, keyFile, handler)
 			} else {
 				server := http3.Server{
-					Handler:    handler,
+					// Handler:    handler,
+					Handler:    http.FileServer(http.Dir(*www)),
 					Addr:       bCap,
 					QuicConfig: quicConf,
 				}
